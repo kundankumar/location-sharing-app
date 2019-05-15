@@ -14,4 +14,8 @@ application up and running.
 
 * All set to go
 
+* login with email 'kundan@example.com' & pwd 'Test@123'
+
+* login with email 'kumar@example.com' & pwd 'Test@123'
+
 * ...
