@@ -1,0 +1,3 @@
+"id","name","email","encrypted_password","avatar","reset_password_token","reset_password_sent_at","remember_created_at","created_at","updated_at","username"
+1,"Kundan","admin@example.com","$2a$11$M..Spjc9nsjzPydUDPhjhuqljcVqvZLB8P2ET8JpGTaOuXJMH6.g2",,,,,"2019-05-12 14:37:02.258602","2019-05-12 14:37:02.258602","kundan"
+2,"Kumar","kumar@example.com","$2a$11$EIZ0ZdPQ3pqx.qs0xh3OFOYFm8zz3c45WAg5IZOrRPf2NhGp0ujt2",,,,,"2019-05-14 18:02:52.162443","2019-05-14 18:02:52.162443","kumar"

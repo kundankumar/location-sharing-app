@@ -1,0 +1,40 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$navbar-color: #005686;
+$border-color: #e0e0e0;
+$liked-color: #2a6496;
+$bg-color: #f0f0f0;
+$light-text-color: #808080;
+$default-font-size: 1.5rem;
+$small-font-size: 1.25rem;
+
+#newsfeed > h4 {
+  text-align: center;
+  padding: 10px;
+}
+
+#intro {
+  margin-top: 125px;
+  padding: 10px 50px;
+  text-align: center;
+  h1 {
+    color: #005686;
+    font-weight: 300 !important;
+  }
+
+  p {
+    font-size: 1.65rem;
+    line-height: 3rem;
+  }
+}
+
+#img-preview {
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid #e0e0e0;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+}

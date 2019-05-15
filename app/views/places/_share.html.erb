@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
+<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+<div class="well">
+  <%= form_for @place, url: home_create_path, html: { class: 'place_form' } do |f| %>
+    <div class="form-group">
+      <h4>Enter place, select location from map & share!</h4>
+      <%= f.text_field :name, class: "form-control", placeholder: "Where to go?",autofocus: true %>
+    </div>
+    <%= f.fields_for :location do |lf| %>
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <%= lf.label :latitude %>
+        </div>
+        <div class="col-sm-3">
+          <%= lf.text_field :lat, class: "form-control", disabled: true %>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <%= lf.label :longitude %>
+        </div>
+        <div class="col-sm-3">
+          <%= lf.text_field :lng, class: "form-control", disabled: true %>
+        </div>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.submit 'Share', class: 'btn btn-primary'%>
+    </div>
+  <% end %>
+</div>
+<div id="mouse-position"></div>
+
+<div class="card">
+  <div class="card-block">
+    <div id="map"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $(function () {
+
+          var lat_field, lng_field, markersArray;
+          lat_field = $('#place_location_attributes_lat');
+          lng_field = $('#place_location_attributes_lng');
+
+          var mousePositionControl = new ol.control.MousePosition({
+               coordinateFormat: new ol.coordinate.createStringXY(7),
+               projection: 'EPSG:4326',
+               // comment the following two lines to have the mouse position
+               // be placed within the map.
+               className: 'custom-mouse-position',
+               target: document.getElementById('mouse-position'),
+               undefinedHTML: '&nbsp;'
+             });
+
+             var map = new ol.Map({
+               controls: new ol.control.defaults().extend([mousePositionControl]),
+               layers: [
+                 new ol.layer.Tile({
+                   source: new ol.source.OSM()
+                 })
+               ],
+               target: 'map',
+               view: new ol.View({
+                 center: ol.proj.fromLonLat([77.3507442, 12.9538477]),
+                 zoom: 2
+               })
+             });
+
+             var markers;
+
+             map.on('click', function(evt){
+               if (markers) map.removeLayer(markers);
+               markers = new ol.layer.Vector({
+                 source: new ol.source.Vector(),
+                 style: new ol.style.Style({
+                   image: new ol.style.Icon({
+                     anchor: [0.5, 1],
+                     src: '/marker.png'
+                   })
+                 })
+               });
+               map.addLayer(markers);
+               let lonLat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326')
+               lng_field.val(lonLat[0]);
+               lat_field.val(lonLat[1]);
+               let marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat(lonLat)));
+               markers.getSource().addFeature(marker);
+             });
+
+  });
+</script>

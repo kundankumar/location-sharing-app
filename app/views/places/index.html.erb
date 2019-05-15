@@ -1,0 +1,78 @@
+<%= render 'layouts/header' %>
+<div id="map1"></div>
+
+<input id="find-me" type="button" value="Find me!"/>
+<p>
+  <b>Location:</b>
+  <br>
+  <b>Latitude :</b><span id="current_latitude"></span>
+  <br>
+  <b>Longitude:</b><span id="current_longitude"></span>
+  <%#= @places.first.location.lat %> <%#= @places.first.location.lng %>AIzaSyAGObulmnZJ0CdEFWfquehYvwmhK1f1Jfw
+</p>
+<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGObulmnZJ0CdEFWfquehYvwmhK1f1Jfw&sensor=false"></script> -->
+<div id="map2" style="width: 600px; height: 500px;"></div>
+<script type="text/javascript">
+  // Create the map
+  var map = new google.maps.Map(document.getElementById("map2"), {
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  // Initialize the bounds container
+  var bounds = new google.maps.LatLngBounds();
+
+  <% @places.each do |place| %>
+    // Create the LatLng
+    var latLng = new google.maps.LatLng(<%= place.location.lat %>, <%= place.location.lng %>);
+
+    // Create the marker
+    var marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        title: '<%= escape_javascript(place.name) %>'
+    });
+
+    // Add click event
+    google.maps.event.addListener(marker, 'click', function() {
+      document.location = '<%= place_path(place) %>';
+    });
+
+    // Extend the bounds
+    bounds.extend(latLng);
+  <% end %>
+
+  // Fit to bounds
+  map.fitBounds(bounds);
+</script>
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Places</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Uuid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @places.each do |place| %>
+      <tr>
+        <td><%= place.name %></td>
+        <td><%= place.uuid %></td>
+        <td><%= link_to 'Show', place %></td>
+        <td><%= link_to 'Edit', edit_place_path(place) %></td>
+        <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Place', new_place_path %>

@@ -1,0 +1,9 @@
+<br>
+<div class="row">
+  <div class="col-lg-12">
+    <%= link_to place.name, place_path(place) %>
+    visited by <strong><%= link_to place.user.name %></strong>
+    <%= render 'shared/created_at', place: place %>
+  </div>
+</div>
+<br>

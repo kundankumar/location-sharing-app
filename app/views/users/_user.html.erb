@@ -1,0 +1,14 @@
+<br>
+<div id="user-<%= user.id %>" class="row">
+  <div class="col-lg-8">
+    <%= render 'shared/avatar', user: user %>
+    <h5 class="name"><%= link_to user.name, user.username %></h5>
+  </div>
+  <div class="col-lg-4">
+    <h5>
+      <%= fa_icon 'map-marker' %>
+      <%= pluralize(user.places.count, 'Place') %>
+    </h5>
+  </div>
+</div>
+<br>

@@ -1,0 +1,35 @@
+<div id="user-<%= @user.id %>" class="row">
+  <div class="col-lg-3">
+    <%= render 'shared/user_info' %>
+  </div>
+  <div class="col-lg-6">
+    <div id="activities">
+      <% if @places.empty? %>
+        <div class="well">
+          <%= render('shared/no_resource', resources: 'Locations') %>
+        </div>
+      <% else %>
+      <div class="well col-lg-12">
+        <div class="card">
+          <div class="card-block">
+            <ul>
+              <%= render partial: 'places/place', collection: @places %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <% if is_current_user?(@user) %>
+      <div class="well">
+        <ul class="nav nav-pills nav-stacked">
+          <li><%= fa_icon 'pencil' %><span>&nbsp;<%= link_to 'Edit Profile', "/#{@user.username}/edit" %></span></li>
+          <li>&nbsp;</li>
+          <li><%= fa_icon 'lock' %><span>&nbsp;<%= link_to 'Change password', edit_user_registration_path %></span></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

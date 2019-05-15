@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LocationSharingApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+
+  <body>
+    <%#= render 'layouts/header' %>
+    <%= render 'shared/navbar' %>
+    <% unless notice.blank? %>
+      <div class="alert alert-info alert-dismissable alert-fixed">
+        <%= notice %>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      </div>
+    <% end %>
+    <% unless alert.blank? %>
+      <div class="alert alert-danger alert-dismissable alert-fixed">
+        <%= alert %>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      </div>
+    <% end %>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
