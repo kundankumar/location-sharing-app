@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   respond_to :html, :js
 
   def show
-    @places = @user.places
+    @places = @user.places.publicly_shared
   end
 
   def edit

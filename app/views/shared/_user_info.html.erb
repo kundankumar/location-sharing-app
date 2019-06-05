@@ -1,7 +1,7 @@
 <div id="user-info" class="well">
   <div class="text-center">
     <%= render 'shared/avatar', user: @user %><br>
-    <h5><%= link_to @user.name, @user.username %></h5>
+    <h5><%= link_to @user.name, "/#{current_user.username}" %></h5>
   </div>
   <h5>
     <%= fa_icon 'map-marker' %>

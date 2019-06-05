@@ -4,7 +4,9 @@
       <%= render 'shared/user_info' %>
     </div>
     <div id="newsfeed" class="col-lg-6">
-      <%= render 'places/share' %>
+      <div id="post-location">
+        <%= render 'places/share' %>
+      </div>
       <div class="col-lg-12">
         <div id="activities">
           <% if @places.empty? %>

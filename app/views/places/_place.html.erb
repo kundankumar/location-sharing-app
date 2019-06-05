@@ -1,8 +1,9 @@
 <br>
 <div class="row">
   <div class="col-lg-12">
+    <input type="hidden" id="place_location_attributes_<%=place.id%>" name="place[location_attributes_<%=place.id%>]" value="<%= place.location.lng %>,<%= place.location.lat %>" />
     <%= link_to place.name, place_path(place) %>
-    visited by <strong><%= link_to place.user.name %></strong>
+    visited by <strong><%= link_to User.find(place.user_id).name %></strong>
     <%= render 'shared/created_at', place: place %>
   </div>
 </div>

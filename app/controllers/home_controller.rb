@@ -3,25 +3,15 @@ class HomeController < ApplicationController
   respond_to :html, :js
 
   def index
-    @place = Place.new
-    @place.build_location
-    # @place.location = Location.new
-    # @place.location.build
-    @places = Place.all
+    if @user
+      @place = Place.new
+      @place.build_location
+      @places = @user.places.or(Place.shared_with_me(@user.id))
+    end
   end
 
   def all_users
     @all_users = User.all
-  end
-
-  def create
-    @place = Place.new place_params
-    @place.user = @user
-    if @place.save
-      redirect_to root_path, notice: 'Location shared!'
-    else
-      render :new
-    end
   end
 
   private
